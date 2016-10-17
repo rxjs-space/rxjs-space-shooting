@@ -1,4 +1,4 @@
-import { Game, Star, HeroShip, config } from '../_shared/config'
+import { Game, Star, HeroShip, HeroMissile, FlyingObject, config } from '../_shared/config'
 import { ctx } from '../_shared/dom-setup';
 
 const drawBackground = () => {
@@ -16,13 +16,23 @@ const drawStars = (stars: Star[]) => {
   })
 }
 
-const drawHeroShip = (heroShip: HeroShip) => {
+const drawTriangle = (flyingObject: FlyingObject): void => {
   ctx.beginPath();
-  ctx.fillStyle = heroShip.color;
-  ctx.moveTo(heroShip.x, heroShip.y);
-  ctx.lineTo(heroShip.x + heroShip.size, heroShip.y + heroShip.size);
-  ctx.lineTo(heroShip.x - heroShip.size, heroShip.y + heroShip.size);
+  ctx.fillStyle = flyingObject.color;
+  ctx.moveTo(flyingObject.x, flyingObject.y);
+  ctx.lineTo(flyingObject.x + flyingObject.size, flyingObject.y + flyingObject.size);
+  ctx.lineTo(flyingObject.x - flyingObject.size, flyingObject.y + flyingObject.size);
   ctx.fill();
+}
+
+const drawHeroShip = (heroShip: HeroShip): void => {
+  drawTriangle(heroShip);
+}
+
+const drawHeroMissiles = (heroMissiles: HeroMissile[]): void => {
+  heroMissiles.forEach(heroMissile => {
+    drawTriangle(heroMissile);
+  })
 }
 
 export const renderer = (game: Game): void => {
@@ -30,5 +40,6 @@ export const renderer = (game: Game): void => {
   drawBackground();
   drawStars(game.stars);
   drawHeroShip(game.heroShip);
+  drawHeroMissiles(game.heroMissiles);
 }
 
