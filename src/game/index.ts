@@ -9,19 +9,19 @@ import 'rxjs/add/operator/switchMap';
 
 import { Game } from '../_shared/config';
 import { startButton, pauseButton } from '../_shared/dom-setup';
+import { gameInitFac } from './game-init';
 import { gamePause$Fac } from './game-pause';
 import { gameRun$Fac } from './game-run';
-
-import { starsInitFunc } from './stars';
 
 const startEvent$Fac = (game: Game): Observable<Game> => {
   return Observable.fromEvent(startButton, 'click')
   .do(e => {console.log('start clicked')})
   .map(e => {
+    pauseButton.disabled = false;
     if(game._firstRun) {
       game._firstRun = false;
     } else {
-      game = {stars: starsInitFunc(), _running: false, _firstRun: false}
+      game = gameInitFac()
     }
     return game
   })
@@ -33,8 +33,10 @@ const pauseEvent$Fac = (game: Game): Observable<Game> => {
     .startWith('')
     .map(() => {
       if (game._running) {
+        pauseButton.value = 'Resume';
         game._running = false
       } else {
+        pauseButton.value = 'Pause';
         game._running = true
       }
       return game
@@ -46,7 +48,7 @@ const gameDetail$Fac = (game: Game): Observable<Game> => {
 }
 
 export const game$Fac = (): Observable<Game> => {
-  const gameInit: Game = {stars: starsInitFunc(), _running: false, _firstRun: true}
+  const gameInit: Game = gameInitFac()
   return startEvent$Fac(gameInit)
   .switchMap(pauseEvent$Fac)
   .switchMap(gameDetail$Fac)

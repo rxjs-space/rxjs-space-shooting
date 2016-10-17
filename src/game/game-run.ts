@@ -1,13 +1,19 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
-import { Game, Star } from '../_shared/config';
+import { Game, Star, HeroShip } from '../_shared/config';
 import { starsMove$Fac } from './stars';
+import { heroShipMove$Fac } from './hero-ship';
 
 export const gameRun$Fac = (game: Game): Observable<Game> => {
   const stars$ = starsMove$Fac(game.stars);
-  return Observable.combineLatest(stars$, (stars: Star[]) => {
+  const heroShip$ = heroShipMove$Fac(game.heroShip);
+  return Observable.combineLatest(stars$, heroShip$, (
+    stars: Star[], 
+    heroShip: HeroShip
+  ) => {
     return Object.assign(game, {
-      stars: stars
+      stars: stars,
+      heroShip: heroShip
     })
   })
 }

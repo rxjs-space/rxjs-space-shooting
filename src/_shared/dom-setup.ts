@@ -24,18 +24,18 @@ Object.assign(startButton, {
   type: 'button',
   value: 'Start'
 })
-startButton.style.marginRight = '20px';
 gameContainer.appendChild(startButton);
 
 export const pauseButton = document.createElement('input')
 Object.assign(pauseButton, {
+  disabled: true,
   className: 'button',
   type: 'button',
   value: 'Pause'
 })
 gameContainer.appendChild(pauseButton);
 
-const canvas = document.createElement('canvas');
+export const canvas = document.createElement('canvas');
 canvas.width = config.canvas.width;
 canvas.height = config.canvas.height;
 canvas.style.display = 'block';
