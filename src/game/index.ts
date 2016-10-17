@@ -9,45 +9,47 @@ import 'rxjs/add/operator/switchMap';
 
 import { Game } from '../_shared/config';
 import { startButton, pauseButton } from '../_shared/dom-setup';
-import { gamePause$Func } from './gamePause';
-import { gameRun$Func } from './gameRun';
+import { gamePause$Fac } from './game-pause';
+import { gameRun$Fac } from './game-run';
 
-const startEvent$Func = (game: Game): Observable<Game> => {
+import { starsInitFunc } from './stars';
+
+const startEvent$Fac = (game: Game): Observable<Game> => {
   return Observable.fromEvent(startButton, 'click')
   .do(e => {console.log('start clicked')})
   .map(e => {
-    if(game.firstRun) {
-      game.firstRun = false;
-      return game;
+    if(game._firstRun) {
+      game._firstRun = false;
     } else {
-      return {x: Math.floor(Math.random()*100), running: false, firstRun: false}
+      game = {stars: starsInitFunc(), _running: false, _firstRun: false}
     }
+    return game
   })
 }
 
-const pauseEvent$Func = (game: Game): Observable<Game> => {
+const pauseEvent$Fac = (game: Game): Observable<Game> => {
   return Observable.fromEvent(pauseButton, 'click')
     .do(e => console.log('pause clicked'))
     .startWith('')
     .map(() => {
-      if (game.running) {
-        game.running = false
+      if (game._running) {
+        game._running = false
       } else {
-        game.running = true
+        game._running = true
       }
       return game
     })
 }
 
-const gameDetail$Func = (game: Game): Observable<Game> => {
-  return game.running ? gameRun$Func(game) : gamePause$Func(game)
+const gameDetail$Fac = (game: Game): Observable<Game> => {
+  return game._running ? gameRun$Fac(game) : gamePause$Fac(game)
 }
 
-export const game$Func = (): Observable<Game> => {
-  const gameInit: Game = {x: Math.floor(Math.random()*100), running: false, firstRun: true}
-  return startEvent$Func(gameInit)
-  .switchMap(pauseEvent$Func)
-  .switchMap(gameDetail$Func)
+export const game$Fac = (): Observable<Game> => {
+  const gameInit: Game = {stars: starsInitFunc(), _running: false, _firstRun: true}
+  return startEvent$Fac(gameInit)
+  .switchMap(pauseEvent$Fac)
+  .switchMap(gameDetail$Fac)
   .startWith(gameInit)
 }
 

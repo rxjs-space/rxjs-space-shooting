@@ -1,5 +1,4 @@
-import { game$Func } from './game';
+import { game$Fac } from './game';
 import { renderer } from './renderer';
 
-game$Func().subscribe(renderer);
-
+game$Fac().subscribe(renderer);
