@@ -6,7 +6,8 @@ export const gameInitFac = (): Game => {
   return {
     stars: starsInitFac(), 
     heroShip: heroShipInitFac(),
-    heroMissiles: [], 
+    heroMissiles: [],
+    enemyShips: [],
     _running: false, 
     _firstRun: false
   }

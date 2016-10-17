@@ -4,7 +4,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/throttleTime';
 import { HeroMissile, HeroShip, config } from '../_shared/config';
 import { canvas } from '../_shared/dom-setup';
-import { heroShipMove$Fac } from './hero-ship';
+import { heroShip$Fac } from './hero-ship';
 
 export const heroMissiles$Fac = (heroMissiles: HeroMissile[], heroShip$: Observable<HeroShip>): Observable<HeroMissile[]> => {
   return Observable.fromEvent(canvas, 'click')
@@ -22,7 +22,7 @@ export const heroMissiles$Fac = (heroMissiles: HeroMissile[], heroShip$: Observa
       return  heroMissiles;
     })
     .switchMap(heroMissiles => {
-      return Observable.interval(config.heroMissile.interval)
+      return Observable.interval(config._shared.strideInterval)
         .map(() => {
           heroMissiles.forEach((heroMissile, index, arr) => {
             heroMissile.y -= heroMissile.stride.y;

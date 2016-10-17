@@ -15,11 +15,11 @@ export const heroShipInitFac = (): HeroShip => {
   }
 }
 
-export const heroShipMove$Fac = (heroShip: HeroShip): Observable<HeroShip> => {
+export const heroShip$Fac = (heroShip: HeroShip): Observable<HeroShip> => {
   return Observable.fromEvent(canvas, 'mousemove')
     .sampleTime(config.heroShip.mousemoveSampleInterval) // not every mousemove event is used to start a new interval observable
     .switchMap((e: {offsetX: number}) => {
-      return Observable.interval(config.heroShip.interval)
+      return Observable.interval(config._shared.strideInterval)
         .startWith(-1) // startWith anything at time 0 once the interval observable is subscribed
         .map(() => {
           switch (true) {

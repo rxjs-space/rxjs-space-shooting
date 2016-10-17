@@ -9,9 +9,9 @@ import 'rxjs/add/operator/switchMap';
 
 import { Game } from '../_shared/config';
 import { startButton, pauseButton } from '../_shared/dom-setup';
-import { gameInitFac } from './game-init';
-import { gamePause$Fac } from './game-pause';
-import { gameRun$Fac } from './game-run';
+import { gameInitFac } from './_game-init';
+import { gamePause$Fac } from './_game-pause';
+import { gameRun$Fac } from './_game-run';
 
 const startEvent$Fac = (game: Game): Observable<Game> => {
   return Observable.fromEvent(startButton, 'click')

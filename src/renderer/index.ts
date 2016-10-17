@@ -1,4 +1,4 @@
-import { Game, Star, HeroShip, HeroMissile, FlyingObject, config } from '../_shared/config'
+import { Game, Star, HeroShip, HeroMissile, FlyingObject, EnemyShip, config } from '../_shared/config'
 import { ctx } from '../_shared/dom-setup';
 
 const drawBackground = () => {
@@ -16,22 +16,37 @@ const drawStars = (stars: Star[]) => {
   })
 }
 
-const drawTriangle = (flyingObject: FlyingObject): void => {
+const drawTriangle = (flyingObject: FlyingObject, headUp: boolean): void => {
   ctx.beginPath();
   ctx.fillStyle = flyingObject.color;
   ctx.moveTo(flyingObject.x, flyingObject.y);
-  ctx.lineTo(flyingObject.x + flyingObject.size, flyingObject.y + flyingObject.size);
-  ctx.lineTo(flyingObject.x - flyingObject.size, flyingObject.y + flyingObject.size);
+  switch (headUp) {
+    case true:
+      ctx.lineTo(flyingObject.x + flyingObject.size, flyingObject.y + flyingObject.size);
+      ctx.lineTo(flyingObject.x - flyingObject.size, flyingObject.y + flyingObject.size);
+      break;
+    case false:
+      ctx.lineTo(flyingObject.x + flyingObject.size, flyingObject.y - flyingObject.size);
+      ctx.lineTo(flyingObject.x - flyingObject.size, flyingObject.y - flyingObject.size);
+      break;
+    // default:
+  }
   ctx.fill();
 }
 
 const drawHeroShip = (heroShip: HeroShip): void => {
-  drawTriangle(heroShip);
+  drawTriangle(heroShip, true);
 }
 
 const drawHeroMissiles = (heroMissiles: HeroMissile[]): void => {
   heroMissiles.forEach(heroMissile => {
-    drawTriangle(heroMissile);
+    drawTriangle(heroMissile, true);
+  })
+}
+
+const drawEnemyShips = (enemyShips: EnemyShip[]): void => {
+  enemyShips.forEach(enemyShip => {
+    drawTriangle(enemyShip, false);
   })
 }
 
@@ -41,5 +56,6 @@ export const renderer = (game: Game): void => {
   drawStars(game.stars);
   drawHeroShip(game.heroShip);
   drawHeroMissiles(game.heroMissiles);
+  drawEnemyShips(game.enemyShips);
 }
 

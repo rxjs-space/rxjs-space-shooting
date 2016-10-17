@@ -18,8 +18,8 @@ export const starsInitFac = () => {
   })
 }
 
-export const starsMove$Fac = (stars: Star[]): Observable<Star[]> => {
-  return Observable.interval(config.stars.interval)
+export const stars$Fac = (stars: Star[]): Observable<Star[]> => {
+  return Observable.interval(config._shared.strideInterval)
     .map(() => {
       stars.forEach(star => {
         star.y += star.stride.y
