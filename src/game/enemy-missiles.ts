@@ -2,7 +2,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/withLatestFrom';
 import { EnemyMissile, EnemyShip, config } from '../_shared';
-import { objectsFly$Fac } from './_objectsFly';
+import { objectsFly$Fac } from './_objects-fly';
 
 const addEnemyMissiles$Fac = (
   enemyMissiles: EnemyMissile[],

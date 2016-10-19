@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs/Subscription';
 export interface FlyingObject {
   x: number;
   y: number;
@@ -37,4 +38,5 @@ export interface Game {
   enemyMissiles: EnemyMissile[];
   _running: boolean;
   _firstRun: boolean;
+  _subscriptions: Subscription[];
 }

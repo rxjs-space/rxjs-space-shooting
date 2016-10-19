@@ -5,7 +5,7 @@ import 'rxjs/add/operator/throttleTime';
 import { HeroMissile, HeroShip, config, canvas } from '../_shared';
 
 import { heroShip$Fac } from './hero-ship';
-import { objectsFly$Fac } from './_objectsFly';
+import { objectsFly$Fac } from './_objects-fly';
 
 const addHeroMissiles$Fac = (heroMissiles: HeroMissile[], heroShip$: Observable<HeroShip>): Observable<HeroMissile[]> => {
   return Observable.fromEvent(canvas, 'click')

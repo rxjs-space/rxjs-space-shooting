@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import { EnemyShip, config } from '../_shared';
-import { objectsFly$Fac } from './_objectsFly';
+import { objectsFly$Fac } from './_objects-fly';
 
 const addEnemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]> => {
   return Observable.interval(config.enemyShip.dispatchInterval)
