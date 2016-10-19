@@ -2,8 +2,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/sampleTime';
 // import 'rxjs/add/operator/throttleTime';
-import { HeroShip, config } from '../_shared/config'
-import { canvas } from '../_shared/dom-setup';
+import { HeroShip, config } from '../_shared'
+import { canvas } from '../_shared';
 
 export const heroShipInitFac = (): HeroShip => {
   return {

@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import { EnemyShip, config } from '../_shared/config';
+import { EnemyShip, config } from '../_shared';
+import { objectsFly$Fac } from './_objectsFly';
 
-export const enemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]> => {
+const addEnemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]> => {
   return Observable.interval(config.enemyShip.dispatchInterval)
     .map(() => {
       if(Math.random() > (1 - config.enemyShip.dispatchProbability)) {
@@ -17,17 +18,10 @@ export const enemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]>
       }
       return enemyShips
     })
-    .switchMap(enemyShips => {
-      return Observable.interval(config._shared.strideInterval)
-        .map(() => {
-          enemyShips.forEach((enemyShip, index, arr) => {
-            enemyShip.y += enemyShip.stride.y;
-            if ( enemyShip.y > (config.canvas.height + enemyShip.size) ) {
-              arr.splice(index, 1);
-            }
-          })
-          return enemyShips;
-        })
-    })
-    .startWith([])
+}
+
+export const enemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]> => {
+  return addEnemyShips$Fac(enemyShips)
+    .startWith(enemyShips)
+    .switchMap(objectsFly$Fac)
 }

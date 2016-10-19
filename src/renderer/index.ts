@@ -1,4 +1,8 @@
-import { Game, Star, HeroShip, HeroMissile, FlyingObject, EnemyShip, config } from '../_shared/config'
+import { 
+  Game, Star, FlyingObject, config,
+  HeroShip, HeroMissile,
+  EnemyShip, EnemyMissile
+} from '../_shared';
 import { ctx } from '../_shared/dom-setup';
 
 const drawBackground = () => {
@@ -50,6 +54,12 @@ const drawEnemyShips = (enemyShips: EnemyShip[]): void => {
   })
 }
 
+const drawEnemyMissiles = (enemyMissiles: EnemyMissile[]): void => {
+  enemyMissiles.forEach(enemyMissile => {
+    drawTriangle(enemyMissile, false)
+  })
+}
+
 export const renderer = (game: Game): void => {
   // return console.log(game)
   drawBackground();
@@ -57,5 +67,6 @@ export const renderer = (game: Game): void => {
   drawHeroShip(game.heroShip);
   drawHeroMissiles(game.heroMissiles);
   drawEnemyShips(game.enemyShips);
+  drawEnemyMissiles(game.enemyMissiles);
 }
 

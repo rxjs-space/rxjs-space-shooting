@@ -7,8 +7,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/switchMap';
 
-import { Game } from '../_shared/config';
-import { startButton, pauseButton } from '../_shared/dom-setup';
+import { Game, startButton, pauseButton } from '../_shared';
+
 import { gameInitFac } from './_game-init';
 import { gamePause$Fac } from './_game-pause';
 import { gameRun$Fac } from './_game-run';

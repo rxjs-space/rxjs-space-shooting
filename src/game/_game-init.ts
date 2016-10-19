@@ -1,4 +1,4 @@
-import { Game } from '../_shared/config'
+import { Game } from '../_shared'
 import { starsInitFac } from './stars';
 import { heroShipInitFac } from './hero-ship';
 
@@ -8,6 +8,7 @@ export const gameInitFac = (): Game => {
     heroShip: heroShipInitFac(),
     heroMissiles: [],
     enemyShips: [],
+    enemyMissiles: [],
     _running: false, 
     _firstRun: false
   }

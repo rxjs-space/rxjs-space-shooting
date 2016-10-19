@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
-import { config, Star } from '../_shared/config';
+import { config, Star } from '../_shared';
 
 export const starsInitFac = () => {
   return Array.apply(null, {length: config.stars.count}).map((item: any, index: number) => {
