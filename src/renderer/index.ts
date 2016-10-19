@@ -20,11 +20,11 @@ const drawStars = (stars: Star[]) => {
   })
 }
 
-const drawTriangle = (flyingObject: FlyingObject, headUp: boolean): void => {
+const drawTriangle = (flyingObject: FlyingObject): void => {
   ctx.beginPath();
   ctx.fillStyle = flyingObject.color;
   ctx.moveTo(flyingObject.x, flyingObject.y);
-  switch (headUp) {
+  switch (flyingObject.pointingUp) {
     case true:
       ctx.lineTo(flyingObject.x + flyingObject.size, flyingObject.y + flyingObject.size);
       ctx.lineTo(flyingObject.x - flyingObject.size, flyingObject.y + flyingObject.size);
@@ -39,34 +39,73 @@ const drawTriangle = (flyingObject: FlyingObject, headUp: boolean): void => {
 }
 
 const drawHeroShip = (heroShip: HeroShip): void => {
-  drawTriangle(heroShip, true);
+  drawTriangle(heroShip);
 }
 
 const drawHeroMissiles = (heroMissiles: HeroMissile[]): void => {
   heroMissiles.forEach(heroMissile => {
-    drawTriangle(heroMissile, true);
+    drawTriangle(heroMissile);
   })
 }
 
 const drawEnemyShips = (enemyShips: EnemyShip[]): void => {
   enemyShips.forEach(enemyShip => {
-    drawTriangle(enemyShip, false);
+    drawTriangle(enemyShip);
   })
 }
 
 const drawEnemyMissiles = (enemyMissiles: EnemyMissile[]): void => {
   enemyMissiles.forEach(enemyMissile => {
-    drawTriangle(enemyMissile, false)
+    drawTriangle(enemyMissile)
   })
 }
 
+const drawScore = (score: number): void => {
+  const gradient=ctx.createLinearGradient(260, 20, 380, 20);
+  gradient.addColorStop(0,"red");
+  gradient.addColorStop(0.5,"orange");
+  gradient.addColorStop(1,"white");
+  ctx.font = 'bold 25px Arial';
+  ctx.fillStyle=gradient;
+  ctx.fillText(`Score: ${score}`, 260, 40);
+}
+
+const drawGameOver = (gameOver: boolean): void => {
+  if(gameOver) {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'
+    ctx.fillRect(0, 0, config.canvas.width, config.canvas.height)
+    ctx.fill();
+    const gradient=ctx.createLinearGradient(80, 20, 300, 20);
+    gradient.addColorStop(0,"red");
+    gradient.addColorStop(0.5,"orange");
+    gradient.addColorStop(1,"white");
+    ctx.font = 'bold 40px Arial';
+    ctx.fillStyle=gradient;
+    ctx.fillText(`GAME OVER`, 80, 200);
+  }
+}
+
+const drawFirstRun = (firstRun: boolean): void => {
+  if(firstRun) {
+    const gradient=ctx.createLinearGradient(100, 20, 300, 20);
+    gradient.addColorStop(0,"red");
+    gradient.addColorStop(0.5,"orange");
+    gradient.addColorStop(1,"white");
+    ctx.font = 'bold 40px Arial';
+    ctx.fillStyle=gradient;
+    ctx.fillText(`SPACE`, 130, 180);
+    ctx.fillText(`SHOOTING`, 90, 230);
+  }
+}
+
 export const renderer = (game: Game): void => {
-  // return console.log(game)
   drawBackground();
   drawStars(game.stars);
   drawHeroShip(game.heroShip);
   drawHeroMissiles(game.heroMissiles);
   drawEnemyShips(game.enemyShips);
   drawEnemyMissiles(game.enemyMissiles);
+  drawScore(game._score);
+  drawGameOver(game._gameOver);
+  drawFirstRun(game._firstRun);
 }
-

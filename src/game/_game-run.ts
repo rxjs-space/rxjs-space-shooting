@@ -2,13 +2,17 @@ import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/observable/combineLatest';
-import { Game, Star, HeroShip, HeroMissile, EnemyShip, EnemyMissile } from '../_shared';
+import {
+  Game, Star,
+  HeroShip, HeroMissile, 
+  EnemyShip, EnemyMissile
+} from '../_shared';
 import { stars$Fac } from './stars';
 import { heroShip$Fac } from './hero-ship';
 import { heroMissiles$Fac } from './hero-missiles';
 import { enemyShips$Fac } from './enemy-ships';
 import { enemyMissiles$Fac } from './enemy-missiles';
-
+import { testGameCollide } from './_test-collide';
 
 const projectFuncFac = (game: Game) => {
   return (
@@ -18,13 +22,15 @@ const projectFuncFac = (game: Game) => {
     enemyShips: EnemyShip[],
     enemyMissiles: EnemyMissile[]
   ) => {
-    return Object.assign(game, {
+    Object.assign(game, {
       stars,
       heroShip,
       heroMissiles,
       enemyShips,
       enemyMissiles
-    })
+    });
+    testGameCollide(game);
+    return game;
   }
 }
 

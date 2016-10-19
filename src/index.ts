@@ -1,4 +1,6 @@
-import { game$Fac } from './game';
+import { game$Fac, game$$ } from './game';
 import { renderer } from './renderer';
 
-game$Fac().subscribe(renderer);
+game$$.subscribe(renderer);
+game$Fac().subscribe(game$$);
+

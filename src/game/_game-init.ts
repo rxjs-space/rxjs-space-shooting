@@ -11,6 +11,8 @@ export const gameInitFac = (): Game => {
     enemyMissiles: [],
     _running: false, 
     _firstRun: false,
-    _subscriptions: []
+    _subscriptions: [],
+    _gameOver: false,
+    _score: 0
   }
 }

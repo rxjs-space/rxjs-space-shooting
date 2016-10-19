@@ -13,7 +13,7 @@ export const config = {
     size: 20,
     color: 'lime',
     stride: {
-      x: 1,
+      x: 3,
       y: 0
     },
     mousemoveSampleInterval: 200

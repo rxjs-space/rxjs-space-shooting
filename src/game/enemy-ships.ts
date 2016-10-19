@@ -12,7 +12,8 @@ const addEnemyShips$Fac = (enemyShips: EnemyShip[]): Observable<EnemyShip[]> => 
           y: 0,
           size: config.enemyShip.size,
           color: config.enemyShip.color,
-          stride: config.enemyShip.stride
+          stride: config.enemyShip.stride,
+          pointingUp: false
         }
         enemyShips.push(newEnemyShip);
       }

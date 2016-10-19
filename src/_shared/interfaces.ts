@@ -8,6 +8,8 @@ export interface FlyingObject {
     x: number;
     y: number;
   };
+  pointingUp: boolean;
+  collided?: boolean;
 }
 
 export interface Star extends FlyingObject {
@@ -39,4 +41,6 @@ export interface Game {
   _running: boolean;
   _firstRun: boolean;
   _subscriptions: Subscription[];
+  _score: number;
+  _gameOver: boolean;
 }

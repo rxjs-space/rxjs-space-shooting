@@ -12,12 +12,13 @@ const addHeroMissiles$Fac = (heroMissiles: HeroMissile[], heroShip$: Observable<
     .throttleTime(200)
     .withLatestFrom(heroShip$, (event, heroShip) => heroShip)
     .map(heroShip => {
-      const newMissile = {
+      const newMissile: HeroMissile = {
         x: heroShip.x,
         y: heroShip.y,
         size: config.heroMissile.size,
         color: config.heroMissile.color,
-        stride: config.heroMissile.stride
+        stride: config.heroMissile.stride,
+        pointingUp: true
       }
       heroMissiles.push(newMissile);
       return  heroMissiles;

@@ -22,7 +22,8 @@ const addEnemyMissiles$Fac = (
           y: firingEnenmyShip.y,
           size: config.enemyMissile.size,
           color: config.enemyMissile.color,
-          stride: config.enemyMissile.stride
+          stride: config.enemyMissile.stride,
+          pointingUp: false
         }
         enemyMissiles.push(newEnemyMissile);
       }

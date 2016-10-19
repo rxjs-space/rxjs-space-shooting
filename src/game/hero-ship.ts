@@ -11,7 +11,8 @@ export const heroShipInitFac = (): HeroShip => {
     y: config.canvas.height - 40,
     size: config.heroShip.size,
     color: config.heroShip.color,
-    stride: config.heroShip.stride
+    stride: config.heroShip.stride,
+    pointingUp: true
   }
 }
 
