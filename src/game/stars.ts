@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs/Observable';
+import { Scheduler } from 'rxjs/Scheduler';
 import 'rxjs/add/observable/interval';
 import { config, Star } from '../_shared';
 
-export const starsInitFac = () => {
-  return Array.apply(null, {length: config.stars.count}).map((item: any, index: number) => {
+export const starsInitFac = (): Star[] => {
+  return Array.apply(null, {length: config.stars.count}).map((item: any, index: number): Star => {
     let toggle = index % 2;
     return {
       x: Math.random() * config.canvas.width,
@@ -18,8 +19,8 @@ export const starsInitFac = () => {
   })
 }
 
-export const stars$Fac = (stars: Star[]): Observable<Star[]> => {
-  return Observable.interval(config._shared.strideInterval)
+export const stars$Fac = (stars: Star[], scheduler?: Scheduler): Observable<Star[]> => {
+  return Observable.interval(config._shared.strideInterval, scheduler)
     .map(() => {
       stars.forEach(star => {
         star.y += star.stride.y

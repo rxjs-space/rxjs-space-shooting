@@ -8,7 +8,7 @@ export interface FlyingObject {
     x: number;
     y: number;
   };
-  pointingUp: boolean;
+  pointingUp?: boolean;
   collided?: boolean;
 }
 
